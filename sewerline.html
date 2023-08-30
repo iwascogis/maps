@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <style>
+    nav{
+        background-color:rgb(0,191,255);
+    }
+    ul{
+       color: #000000; 
+    }
+  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Favicon -->
+    
+
+    <!-- Box icons -->
+    
+    <!-- Custom StyleSheet -->
+    <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="navigation container">
+            <div class="logo">
+                <h1>IWASCO GIS SYSTEM</h1>
+            </div>         
+
+                <ul class="nav-list">
+                         <a href  class= " fa fa-arrows-alt">Zoom to Extent</a>
+                    <li> &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; </li>     
+                    <li class="nav-item">
+                        <a title="Click to view map" href="meter.html" class="nav-link">Meter Accounts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a title="Click to view map" href="pipeline.html" class="nav-link">Pipeline System</a>
+                    </li>
+                    <li class="nav-item">
+                        <a title="Click to view map" href="sewerline.html" class="nav-link">Sewer System</a>
+                    </li> 
+                                                      
+                </ul>
+
+            </div>
+
+            <a href="pipeline.html" class="pipeline">
+                <i class="bx bx-pipeline"></i>
+            </a>
+
+            
+        </div>
+    </nav>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 96.9%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/Servicearea_1.js"></script>
+        <script src="data/SewerTreatmentPlant_2.js"></script>
+        <script src="data/Sewerline_3.js"></script>
+        <script src="data/Manholes_4.js"></script>
+        <script src="data/Reservoir_5.js"></script>
+        <script src="data/Pipeline_6.js"></script>
+        <script src="data/Boreholes_7.js"></script>
+        <script src="data/Appurtenance_8.js"></script>
+        <script src="data/Meteraccounts_9.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).setView([0.35006, 37.58315], 14.0);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://iwascogis.github.io/maps" target="_blank">Iwasco Gis</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; Done by <a href="iwascogis.github.io/maps">Pchums</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_Googleearth_0');
+        map.getPane('pane_Googleearth_0').style.zIndex = 400;
+        var layer_Googleearth_0 = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
+            pane: 'pane_Googleearth_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 8,
+            maxNativeZoom: 18
+        });
+        layer_Googleearth_0;
+        map.addLayer(layer_Googleearth_0);
+        function pop_Servicearea_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Zone</th>\
+                        <td>' + (feature.properties['Zone'] !== null ? autolinker.link(feature.properties['Zone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Servicearea_1_0() {
+            return {
+                pane: 'pane_Servicearea_1',
+                opacity: 1,
+                color: 'rgba(227,26,28,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,113,72,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Servicearea_1');
+        map.getPane('pane_Servicearea_1').style.zIndex = 401;
+        map.getPane('pane_Servicearea_1').style['mix-blend-mode'] = 'normal';
+        var layer_Servicearea_1 = new L.geoJson(json_Servicearea_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Servicearea_1',
+            layerName: 'layer_Servicearea_1',
+            pane: 'pane_Servicearea_1',
+            onEachFeature: pop_Servicearea_1,
+            style: style_Servicearea_1_0,
+        });
+        bounds_group.addLayer(layer_Servicearea_1);
+        map.addLayer(layer_Servicearea_1);
+        function pop_SewerTreatmentPlant_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area</th>\
+                        <td>' + (feature.properties['Area'] !== null ? autolinker.link(feature.properties['Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SewerTreatmentPlant_2_0() {
+            return {
+                pane: 'pane_SewerTreatmentPlant_2',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(51,160,44,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_SewerTreatmentPlant_2');
+        map.getPane('pane_SewerTreatmentPlant_2').style.zIndex = 402;
+        map.getPane('pane_SewerTreatmentPlant_2').style['mix-blend-mode'] = 'normal';
+        var layer_SewerTreatmentPlant_2 = new L.geoJson(json_SewerTreatmentPlant_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_SewerTreatmentPlant_2',
+            layerName: 'layer_SewerTreatmentPlant_2',
+            pane: 'pane_SewerTreatmentPlant_2',
+            onEachFeature: pop_SewerTreatmentPlant_2,
+            style: style_SewerTreatmentPlant_2_0,
+        });
+        bounds_group.addLayer(layer_SewerTreatmentPlant_2);
+        map.addLayer(layer_SewerTreatmentPlant_2);
+        function pop_Sewerline_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Pipe size</th>\
+                        <td>' + (feature.properties['Size'] !== null ? autolinker.link(feature.properties['Size'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pipe material</th>\
+                        <td>' + (feature.properties['Material'] !== null ? autolinker.link(feature.properties['Material'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Year installed</th>\
+                        <td>' + (feature.properties['Age'] !== null ? autolinker.link(feature.properties['Age'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Sewerline_3_0() {
+            return {
+                pane: 'pane_Sewerline_3',
+                opacity: 1,
+                color: 'rgba(51,160,44,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.5,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Sewerline_3');
+        map.getPane('pane_Sewerline_3').style.zIndex = 403;
+        map.getPane('pane_Sewerline_3').style['mix-blend-mode'] = 'normal';
+        var layer_Sewerline_3 = new L.geoJson(json_Sewerline_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Sewerline_3',
+            layerName: 'layer_Sewerline_3',
+            pane: 'pane_Sewerline_3',
+            onEachFeature: pop_Sewerline_3,
+            style: style_Sewerline_3_0,
+        });
+        bounds_group.addLayer(layer_Sewerline_3);
+        map.addLayer(layer_Sewerline_3);
+        function pop_Manholes_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Manholes_4_0() {
+            return {
+                pane: 'pane_Manholes_4',
+                radius: 2.4,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.5,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Manholes_4');
+        map.getPane('pane_Manholes_4').style.zIndex = 404;
+        map.getPane('pane_Manholes_4').style['mix-blend-mode'] = 'normal';
+        var layer_Manholes_4 = new L.geoJson(json_Manholes_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Manholes_4',
+            layerName: 'layer_Manholes_4',
+            pane: 'pane_Manholes_4',
+            onEachFeature: pop_Manholes_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Manholes_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Manholes_4);
+        map.addLayer(layer_Manholes_4);
+        function pop_Reservoir_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Reservoir</th>\
+                        <td>' + (feature.properties['Reservoir'] !== null ? autolinker.link(feature.properties['Reservoir'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Reservoir_5_0() {
+            return {
+                pane: 'pane_Reservoir_5',
+                opacity: 1,
+                color: 'rgba(166,206,227,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(89,35,238,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Reservoir_5');
+        map.getPane('pane_Reservoir_5').style.zIndex = 405;
+        map.getPane('pane_Reservoir_5').style['mix-blend-mode'] = 'normal';
+        var layer_Reservoir_5 = new L.geoJson(json_Reservoir_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Reservoir_5',
+            layerName: 'layer_Reservoir_5',
+            pane: 'pane_Reservoir_5',
+            onEachFeature: pop_Reservoir_5,
+            style: style_Reservoir_5_0,
+        });
+        bounds_group.addLayer(layer_Reservoir_5);
+        //map.addLayer(layer_Reservoir_5);
+        function pop_Pipeline_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Pipe size</th>\
+                        <td>' + (feature.properties['P diameter'] !== null ? autolinker.link(feature.properties['P diameter'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Pipe material</th>\
+                        <td>' + (feature.properties['P Material'] !== null ? autolinker.link(feature.properties['P Material'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Pipeline_6_0() {
+            return {
+                pane: 'pane_Pipeline_6',
+                opacity: 1,
+                color: 'rgba(89,35,238,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Pipeline_6');
+        map.getPane('pane_Pipeline_6').style.zIndex = 406;
+        map.getPane('pane_Pipeline_6').style['mix-blend-mode'] = 'normal';
+        var layer_Pipeline_6 = new L.geoJson(json_Pipeline_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Pipeline_6',
+            layerName: 'layer_Pipeline_6',
+            pane: 'pane_Pipeline_6',
+            onEachFeature: pop_Pipeline_6,
+            style: style_Pipeline_6_0,
+        });
+        bounds_group.addLayer(layer_Pipeline_6);
+        //map.addLayer(layer_Pipeline_6);
+        function pop_Boreholes_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">BH name</th>\
+                        <td>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Production</th>\
+                        <td>' + (feature.properties['Production'] !== null ? autolinker.link(feature.properties['Production'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Status</th>\
+                        <td>' + (feature.properties['Status'] !== null ? autolinker.link(feature.properties['Status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Boreholes_7_0() {
+            return {
+                pane: 'pane_Boreholes_7',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(89,35,238,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Boreholes_7');
+        map.getPane('pane_Boreholes_7').style.zIndex = 407;
+        map.getPane('pane_Boreholes_7').style['mix-blend-mode'] = 'normal';
+        var layer_Boreholes_7 = new L.geoJson(json_Boreholes_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Boreholes_7',
+            layerName: 'layer_Boreholes_7',
+            pane: 'pane_Boreholes_7',
+            onEachFeature: pop_Boreholes_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Boreholes_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Boreholes_7);
+        //map.addLayer(layer_Boreholes_7);
+        function pop_Appurtenance_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Type</th>\
+                        <td>' + (feature.properties['Type'] !== null ? autolinker.link(feature.properties['Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Size</th>\
+                        <td>' + (feature.properties['Size'] !== null ? autolinker.link(feature.properties['Size'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Appurtenance_8_0(feature) {
+            switch(String(feature.properties['Type'])) {
+                case 'Air valve':
+                    return {
+                pane: 'pane_Appurtenance_8',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,13,227,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Gate valve':
+                    return {
+                pane: 'pane_Appurtenance_8',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(251,154,153,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Sluice valve':
+                    return {
+                pane: 'pane_Appurtenance_8',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(166,206,227,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Appurtenance_8');
+        map.getPane('pane_Appurtenance_8').style.zIndex = 408;
+        map.getPane('pane_Appurtenance_8').style['mix-blend-mode'] = 'normal';
+        var layer_Appurtenance_8 = new L.geoJson(json_Appurtenance_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Appurtenance_8',
+            layerName: 'layer_Appurtenance_8',
+            pane: 'pane_Appurtenance_8',
+            onEachFeature: pop_Appurtenance_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Appurtenance_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Appurtenance_8);
+        //map.addLayer(layer_Appurtenance_8);
+        
+            var title = new L.Control();
+            title.onAdd = function (map) {
+                this._div = L.DomUtil.create('div', 'info');
+                this.update();
+                return this._div;
+            };
+            title.update = function () {
+                this._div.innerHTML = '<h2 style="color:blue;">SEWER SYSTEM</h2>';
+            };
+            title.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Manholes_4.png" /> Manholes': layer_Manholes_4,'<img src="legend/Sewerline_3.png" /> Sewerline': layer_Sewerline_3,'<img src="legend/SewerTreatmentPlant_2.png" /> Sewer Treatment Plant': layer_SewerTreatmentPlant_2,'<img src="legend/Servicearea_1.png" /> Service area': layer_Servicearea_1,"Google earth": layer_Googleearth_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        
+        </script>
+    </body>
+</html>
+</body>
+
+</html>
